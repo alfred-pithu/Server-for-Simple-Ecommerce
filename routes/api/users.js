@@ -6,6 +6,9 @@ router.route('/')
     .get(userController.getAllUser)
     .post(userController.addNewUser)
 
+router.route('/:email')
+    .patch(userController.updateCart)
+
 
 
 module.exports = router;
