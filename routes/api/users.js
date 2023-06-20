@@ -7,6 +7,7 @@ router.route('/')
     .post(userController.addNewUser)
 
 router.route('/:email')
+    .get(userController.getOneUser)
     .patch(userController.updateCart)
 
 
