@@ -10,6 +10,9 @@ router.route('/:email')
     .get(userController.getOneUser)
     .patch(userController.updateCart)
 
+router.route('/:itemId/cart/:email')
+    .patch(userController.deleteFromCart)
+
 
 
 module.exports = router;
