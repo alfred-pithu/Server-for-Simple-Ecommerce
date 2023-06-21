@@ -1,15 +1,24 @@
 const User = require('../model/User')
+const Order = require('../model/Order')
 const mongoose = require('mongoose');
 
 
 const getAllOrders = async (req, res) => {
-
+    try {
+        const allOrders = await Order.find();
+        // console.log(allOrders)
+        res.status(201).json(allOrders)
+    } catch (err) {
+        console.error(err)
+    }
 }
 
 
 const placeOrder = async (req, res) => {
     const { itemId, email } = req.params;
-    console.log("Item id and email", itemId, email)
+    const product = req.body;
+    console.log('Product from req.body      ', product)
+    // console.log("Item id and email", itemId, email)
     if (!itemId || !email) {
         res.json({ "message": "Item Id and User email required" })
     }
@@ -34,11 +43,27 @@ const placeOrder = async (req, res) => {
         // Save the updated user document
         const updatedUser = await user.save();
 
-        res.sendStatus(200)
+        try {
+            // Place the order 
+            const newOrder = {
+                userEmail: email,
+                productId: product._id,
+                productName: product.name,
+                price: product.price,
+                productImage: product.image
+            }
+
+            const createdOrder = await Order.create(newOrder)
+
+            res.status(201).json({ createdOrder })
+
+        } catch (err) {
+            console.error(err)
+        }
 
     } catch (err) {
         console.error(error)
     }
 }
 
-module.exports = { placeOrder }
+module.exports = { placeOrder, getAllOrders }
