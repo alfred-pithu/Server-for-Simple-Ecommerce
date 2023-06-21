@@ -25,9 +25,7 @@ const addNewUser = async (req, res) => {
 // To add a product in the cart of one certain user
 const updateCart = async (req, res) => {
     const userEmail = req.params.email;
-    // console.log('email', userEmail)
     const newItemForCartArray = req.body.item;
-    // console.log('Sent Item for add', newItemForCartArray)
     try {
         await User.findOneAndUpdate(
             { email: userEmail },
@@ -49,11 +47,9 @@ const updateCart = async (req, res) => {
 // To get one particular user using their email
 const getOneUser = async (req, res) => {
     const userEmail = req.params.email;
-    // console.log('email', userEmail)
     if (!userEmail) return res.json({ "message": "User email required" })
     try {
         const result = await User.findOne({ "email": userEmail })
-        // console.log('result', result)
         res.send(result)
     } catch (err) {
         console.error(err)
@@ -64,7 +60,6 @@ const getOneUser = async (req, res) => {
 
 const deleteFromCart = async (req, res) => {
     const { itemId, email } = req.params;
-    // console.log("Item id and email", itemId, email)
     if (!itemId || !email) {
         res.json({ "message": "Item Id and User email required" })
     }

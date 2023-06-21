@@ -3,22 +3,21 @@ const Order = require('../model/Order')
 const mongoose = require('mongoose');
 
 
+// Getting all the order for the Admin Dashboard
 const getAllOrders = async (req, res) => {
     try {
         const allOrders = await Order.find();
-        // console.log(allOrders)
         res.status(201).json(allOrders)
     } catch (err) {
         console.error(err)
     }
 }
 
-
+// Placing an order
 const placeOrder = async (req, res) => {
     const { itemId, email } = req.params;
     const product = req.body;
     console.log('Product from req.body      ', product)
-    // console.log("Item id and email", itemId, email)
     if (!itemId || !email) {
         res.json({ "message": "Item Id and User email required" })
     }
