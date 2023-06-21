@@ -16,6 +16,7 @@ app.use(express.json())
 // Routes
 app.use('/products', require('./routes/api/products'));
 app.use('/users', require('./routes/api/users'))
+app.use('/orders', require('./routes/api/orders'))
 
 
 
