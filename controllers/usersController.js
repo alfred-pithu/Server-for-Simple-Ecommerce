@@ -50,7 +50,7 @@ const getOneUser = async (req, res) => {
     if (!userEmail) return res.json({ "message": "User email required" })
     try {
         const result = await User.findOne({ "email": userEmail })
-        res.send(result)
+        res.json(result)
     } catch (err) {
         console.error(err)
     }
